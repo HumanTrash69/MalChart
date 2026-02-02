@@ -2,6 +2,8 @@
 
 This is the **simplest guide** to get MalChart running locally on your computer.
 
+> 💡 **Want step-by-step screenshots?** Check out the [Visual Setup Guide](VISUAL_GUIDE.md)!
+
 ## ✅ What You Need
 
 Before starting, make sure you have:

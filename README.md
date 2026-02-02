@@ -2,18 +2,37 @@
 
 An AniChart-like clone which takes data from MyAnimeList instead. View seasonal anime with a beautiful, responsive interface powered by real-time MAL data.
 
-## 🚀 Running Locally
+## 🚀 Running Locally on Your Laptop
 
-**Want to run this on your laptop?** See the [📖 Local Setup Guide](LOCAL_SETUP.md) - it's super easy!
+**Want to run this on your laptop?** Choose your path:
 
-Quick version:
+### 🎯 Quickest Path (Recommended)
+1. **[📄 Quick Reference Card](QUICK_REFERENCE.md)** - One page with all commands
+2. **[📖 Local Setup Guide](LOCAL_SETUP.md)** - Easy step-by-step instructions
+3. **[🖼️ Visual Guide](VISUAL_GUIDE.md)** - See what to expect at each step
+
+### ⚡ One Command Setup:
 ```bash
 git clone https://github.com/HumanTrash69/MalChart.git
 cd MalChart
-./setup.sh  # Mac/Linux
-# or
-setup.bat   # Windows
+
+# On Mac/Linux:
+./setup.sh
+
+# On Windows:
+setup.bat
 ```
+
+The setup script automatically:
+- ✅ Installs all dependencies
+- ✅ Creates configuration files  
+- ✅ Starts the backend server (port 5000)
+- ✅ Starts the frontend app (port 3000)
+- ✅ Opens in your browser
+
+### 📚 Alternative Guides
+- **[QUICKSTART.md](QUICKSTART.md)** - Docker setup & alternatives
+- **[DEPLOYMENT.md](DEPLOYMENT.md)** - Production deployment
 
 ## Features
 
