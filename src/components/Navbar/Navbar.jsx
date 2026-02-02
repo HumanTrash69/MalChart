@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './Navbar.css';
 import SeasonSelector from '../SeasonSelector/SeasonSelector';
+import ThemeToggle from '../ThemeToggle/ThemeToggle';
 import { getCurrentSeason, getCurrentYear } from '../../utils/helpers';
 
 const Navbar = ({ onSeasonChange, onViewChange }) => {
@@ -63,6 +64,7 @@ const Navbar = ({ onSeasonChange, onViewChange }) => {
           >
             TBA
           </button>
+          <ThemeToggle />
         </div>
       </div>
     </nav>

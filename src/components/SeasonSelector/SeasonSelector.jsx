@@ -1,8 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './SeasonSelector.css';
 
 const SeasonSelector = ({ onSeasonSelect, currentSeason, currentYear }) => {
   const [showGrid, setShowGrid] = useState(false);
+  const selectorRef = useRef(null);
+  
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (selectorRef.current && !selectorRef.current.contains(event.target)) {
+        setShowGrid(false);
+      }
+    };
+    
+    if (showGrid) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showGrid]);
   
   // Generate available seasons (previous season of last year + all current year seasons)
   const generateSeasons = () => {
@@ -53,7 +71,7 @@ const SeasonSelector = ({ onSeasonSelect, currentSeason, currentYear }) => {
   };
   
   return (
-    <div className="season-selector">
+    <div className="season-selector" ref={selectorRef}>
       <button 
         className="season-selector-toggle"
         onClick={() => setShowGrid(!showGrid)}
