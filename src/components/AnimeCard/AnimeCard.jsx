@@ -5,6 +5,12 @@ const AnimeCard = ({ anime }) => {
   const handleTitleClick = () => {
     window.open(anime.url, '_blank');
   };
+  
+  const handleLinkClick = (url) => {
+    if (url) {
+      window.open(url, '_blank');
+    }
+  };
 
   const formatDate = (dateString) => {
     if (!dateString) return 'TBA';
@@ -40,6 +46,8 @@ const AnimeCard = ({ anime }) => {
             )}
           </div>
           
+          <div className="content-separator"></div>
+          
           <div className="scrollable-content">
             <div className="anime-stats">
               {formatDate(anime.aired?.from)} • {anime.episodes || '?'} eps
@@ -47,8 +55,14 @@ const AnimeCard = ({ anime }) => {
 
             <div className="anime-genres">
               <span className="genre-label">Genre:</span>
-              {anime.genres?.map((genre, index) => (
-                <span key={genre.mal_id} className="genre-tag">{genre.name}</span>
+              {anime.genres?.map((genre) => (
+                <span 
+                  key={genre.mal_id} 
+                  className="genre-tag clickable"
+                  onClick={() => handleLinkClick(genre.url)}
+                >
+                  {genre.name}
+                </span>
               ))}
             </div>
 
@@ -56,7 +70,19 @@ const AnimeCard = ({ anime }) => {
               {anime.studios?.length > 0 && (
                 <div className="metadata-item">
                   <span className="metadata-label">Studio:</span>
-                  {anime.studios.map(studio => studio.name).join(', ')}
+                  <span className="metadata-values">
+                    {anime.studios.map((studio, idx) => (
+                      <React.Fragment key={studio.mal_id}>
+                        {idx > 0 && ', '}
+                        <span 
+                          className="clickable-link"
+                          onClick={() => handleLinkClick(studio.url)}
+                        >
+                          {studio.name}
+                        </span>
+                      </React.Fragment>
+                    ))}
+                  </span>
                 </div>
               )}
               
@@ -67,26 +93,54 @@ const AnimeCard = ({ anime }) => {
                 </div>
               )}
             </div>
-
-            <div className="synopsis">
-              <span className="synopsis-label">Synopsis:</span>
-              {anime.synopsis}
-            </div>
+            
+            <div className="content-separator"></div>
 
             <div className="anime-metadata">
               {anime.themes?.length > 0 && (
                 <div className="metadata-item">
                   <span className="metadata-label">Theme:</span>
-                  {anime.themes.map(theme => theme.name).join(', ')}
+                  <span className="metadata-values">
+                    {anime.themes.map((theme, idx) => (
+                      <React.Fragment key={theme.mal_id}>
+                        {idx > 0 && ', '}
+                        <span 
+                          className="clickable-link"
+                          onClick={() => handleLinkClick(theme.url)}
+                        >
+                          {theme.name}
+                        </span>
+                      </React.Fragment>
+                    ))}
+                  </span>
                 </div>
               )}
 
               {anime.demographics?.length > 0 && (
                 <div className="metadata-item">
                   <span className="metadata-label">Demographic:</span>
-                  {anime.demographics.map(demo => demo.name).join(', ')}
+                  <span className="metadata-values">
+                    {anime.demographics.map((demo, idx) => (
+                      <React.Fragment key={demo.mal_id}>
+                        {idx > 0 && ', '}
+                        <span 
+                          className="clickable-link"
+                          onClick={() => handleLinkClick(demo.url)}
+                        >
+                          {demo.name}
+                        </span>
+                      </React.Fragment>
+                    ))}
+                  </span>
                 </div>
               )}
+            </div>
+            
+            <div className="content-separator"></div>
+
+            <div className="synopsis">
+              <span className="synopsis-label">Synopsis:</span>
+              {anime.synopsis}
             </div>
           </div>
         </div>

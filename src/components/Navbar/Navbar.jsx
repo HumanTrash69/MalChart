@@ -36,16 +36,6 @@ const Navbar = ({ onSeasonChange, onViewChange }) => {
     <nav className="navbar">
       <div className="navbar-content">
         <div className="navbar-brand">MALCharts</div>
-        
-        <div className="year-control">
-          <button onClick={() => handleYearChange('prev')} className="year-button">
-            ◄
-          </button>
-          <span className="year-display">{selectedYear}</span>
-          <button onClick={() => handleYearChange('next')} className="year-button">
-            ►
-          </button>
-        </div>
 
         <div className="seasons">
           {['winter', 'spring', 'summer', 'fall'].map(season => (
@@ -68,10 +58,10 @@ const Navbar = ({ onSeasonChange, onViewChange }) => {
             Archive
           </button>
           <button 
-            className={`nav-button ${activeView === 'tba' ? 'active' : ''}`}
-            onClick={() => handleViewChange('tba')}
+            className={`nav-button ${activeView === 'later' ? 'active' : ''}`}
+            onClick={() => handleViewChange('later')}
           >
-            TBA
+            Later
           </button>
           <ThemeToggle />
         </div>

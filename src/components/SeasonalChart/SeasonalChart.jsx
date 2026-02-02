@@ -9,11 +9,12 @@ const SeasonalChart = ({ season, year, view }) => {
   const [allAnimeList, setAllAnimeList] = useState([]);
   const [displayedAnime, setDisplayedAnime] = useState([]);
   const [filteredAnime, setFilteredAnime] = useState([]);
+  const [unfilteredTotal, setUnfilteredTotal] = useState(0);
   const [searchTerm, setSearchTerm] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [filters, setFilters] = useState({
     hideHentai: true,
-    hideKids: false
+    hideKids: true
   });
 
   const applyFilters = (animeList) => {
@@ -53,13 +54,22 @@ const SeasonalChart = ({ season, year, view }) => {
       setIsLoading(true);
       
       let data;
-      if (view === 'tba') {
-        // Fetch upcoming anime for TBA view
-        data = await getUpcomingAnime();
+      if (view === 'later') {
+        // Fetch upcoming anime for Later view - only shows anime with no air date or future dates
+        const upcomingData = await getUpcomingAnime();
+        const now = new Date();
+        data = upcomingData.filter(anime => {
+          if (!anime.aired?.from) return true; // No date means truly upcoming
+          const airDate = new Date(anime.aired.from);
+          return airDate > now; // Only future dates
+        });
       } else {
         // Fetch seasonal anime for archive view
         data = await getSeasonalAnime(year, season);
       }
+      
+      // Store unfiltered total
+      setUnfilteredTotal(data.length);
       
       // Apply content filters
       data = applyFilters(data);
@@ -148,7 +158,7 @@ const SeasonalChart = ({ season, year, view }) => {
   };
 
   const getViewTitle = () => {
-    if (view === 'tba') return 'To Be Announced';
+    if (view === 'later') return 'Later';
     return `${season.charAt(0).toUpperCase() + season.slice(1)} ${year}`;
   };
 
@@ -163,6 +173,7 @@ const SeasonalChart = ({ season, year, view }) => {
       />
       <SortSection 
         totalAnime={searchTerm ? filteredAnime.length : allAnimeList.length} 
+        unfilteredTotal={unfilteredTotal}
         onSortChange={handleSort}
         onFilterChange={handleFilterChange}
         filters={filters}

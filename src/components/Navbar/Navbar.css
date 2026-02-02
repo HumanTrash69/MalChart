@@ -2,9 +2,7 @@
   background: var(--color-foreground);
   width: 100%;
   height: 60px;
-  position: fixed;
-  top: 0;
-  left: 0;
+  position: relative;
   z-index: 100;
 }
 
@@ -23,38 +21,6 @@
   font-size: 1.5rem;
   font-weight: bold;
   flex: 0 0 auto;
-}
-
-.year-control {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  flex: 0 0 auto;
-}
-
-.year-button {
-  background: none;
-  border: 1px solid var(--color-text-light);
-  color: var(--color-text-light);
-  cursor: pointer;
-  padding: 0.3rem 0.6rem;
-  border-radius: 4px;
-  font-size: 1rem;
-  transition: all 0.2s ease;
-}
-
-.year-button:hover {
-  background-color: rgba(61, 180, 242, 0.1);
-  border-color: var(--color-blue);
-  color: var(--color-blue);
-}
-
-.year-display {
-  color: var(--color-text-bright);
-  font-size: 1.1rem;
-  font-weight: 600;
-  min-width: 60px;
-  text-align: center;
 }
 
 .seasons {

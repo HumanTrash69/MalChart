@@ -1,11 +1,11 @@
 import React from 'react';
 import './SortSection.css';
 
-const SortSection = ({ totalAnime, onSortChange, onFilterChange, filters }) => {
+const SortSection = ({ totalAnime, unfilteredTotal, onSortChange, onFilterChange, filters }) => {
   return (
     <div className="sort-section-container">
       <div className="total-anime">
-        {totalAnime} titles
+        Showing: {totalAnime}/{unfilteredTotal || totalAnime}
       </div>
       <div className="controls-section">
         <div className="filter-section">
@@ -15,15 +15,15 @@ const SortSection = ({ totalAnime, onSortChange, onFilterChange, filters }) => {
               checked={filters?.hideHentai ?? true}
               onChange={(e) => onFilterChange('hideHentai', e.target.checked)}
             />
-            <span>Hide Hentai</span>
+            <span>Hentai</span>
           </label>
           <label className="filter-checkbox">
             <input 
               type="checkbox" 
-              checked={filters?.hideKids ?? false}
+              checked={filters?.hideKids ?? true}
               onChange={(e) => onFilterChange('hideKids', e.target.checked)}
             />
-            <span>Hide Kids</span>
+            <span>Kids</span>
           </label>
         </div>
         <div className="sort-section">

@@ -8,7 +8,7 @@ import './App.css';
 function App() {
   const [currentSeason, setCurrentSeason] = useState(getCurrentSeason());
   const [currentYear, setCurrentYear] = useState(getCurrentYear());
-  const [currentView, setCurrentView] = useState('season'); // 'season', 'archive', 'tba'
+  const [currentView, setCurrentView] = useState('season'); // 'season', 'archive', 'later'
   const [showArchiveSelector, setShowArchiveSelector] = useState(false);
 
   const handleSeasonChange = (season, year) => {
