@@ -1,11 +1,38 @@
 import React from 'react';
 import './SortSection.css';
 
-const SortSection = ({ totalAnime, unfilteredTotal, onSortChange, onFilterChange, filters }) => {
+const SortSection = ({ totalAnime, unfilteredTotal, onSortChange, onFilterChange, filters, categories }) => {
+  const scrollToCategory = (category) => {
+    const element = document.getElementById(`category-${category}`);
+    if (element) {
+      const yOffset = -20;
+      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="sort-section-container">
-      <div className="total-anime">
-        Showing: {totalAnime}/{unfilteredTotal || totalAnime}
+      <div className="left-section">
+        <div className="total-anime">
+          Showing: {totalAnime}/{unfilteredTotal || totalAnime}
+        </div>
+        {categories && (
+          <div className="category-nav-inline">
+            {Object.entries(categories).map(([category, count]) => (
+              count > 0 && (
+                <button
+                  key={category}
+                  className="category-nav-button"
+                  onClick={() => scrollToCategory(category)}
+                >
+                  {category}
+                  <span className="count">({count})</span>
+                </button>
+              )
+            ))}
+          </div>
+        )}
       </div>
       <div className="controls-section">
         <div className="filter-section">

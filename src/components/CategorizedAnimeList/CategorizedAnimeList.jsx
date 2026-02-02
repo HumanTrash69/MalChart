@@ -1,10 +1,32 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import AnimeCard from '../AnimeCard/AnimeCard';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
-import CategoryNav from '../CategoryNav/CategoryNav';
 import './CategorizedAnimeList.css';
 
-const CategorizedAnimeList = ({ animeList, isLoading }) => {
+const CategorizedAnimeList = ({ animeList, isLoading, onCategoriesChange }) => {
+  // Group anime by type and status
+  const groupedAnime = {
+    'TV (NEW)': animeList?.filter(anime => anime.type === 'TV' && !anime.continuing) || [],
+    'TV (Continuing)': animeList?.filter(anime => anime.type === 'TV' && anime.continuing) || [],
+    'ONA': animeList?.filter(anime => anime.type === 'ONA') || [],
+    'OVA': animeList?.filter(anime => anime.type === 'OVA') || [],
+    'Movie': animeList?.filter(anime => anime.type === 'Movie') || [],
+    'Special': animeList?.filter(anime => anime.type === 'Special') || []
+  };
+
+  // Create categories object with counts
+  const categories = {};
+  Object.entries(groupedAnime).forEach(([category, animeInCategory]) => {
+    categories[category] = animeInCategory.length;
+  });
+
+  // Notify parent component of category changes
+  useEffect(() => {
+    if (onCategoriesChange && animeList) {
+      onCategoriesChange(categories);
+    }
+  }, [animeList, onCategoriesChange]);
+
   if (isLoading) {
     return <LoadingSpinner message="Fetching anime data..." />;
   }
@@ -17,25 +39,8 @@ const CategorizedAnimeList = ({ animeList, isLoading }) => {
     );
   }
 
-  // Group anime by type and status
-  const groupedAnime = {
-    'TV (NEW)': animeList.filter(anime => anime.type === 'TV' && !anime.continuing),
-    'TV (Continuing)': animeList.filter(anime => anime.type === 'TV' && anime.continuing),
-    'ONA': animeList.filter(anime => anime.type === 'ONA'),
-    'OVA': animeList.filter(anime => anime.type === 'OVA'),
-    'Movie': animeList.filter(anime => anime.type === 'Movie'),
-    'Special': animeList.filter(anime => anime.type === 'Special')
-  };
-
-  // Create categories object for CategoryNav with counts
-  const categories = {};
-  Object.entries(groupedAnime).forEach(([category, animeInCategory]) => {
-    categories[category] = animeInCategory.length;
-  });
-
   return (
     <div className="categorized-list">
-      <CategoryNav categories={categories} />
       {Object.entries(groupedAnime).map(([category, animeInCategory]) => (
         animeInCategory.length > 0 && (
           <div key={category} id={`category-${category}`} className="category-section">

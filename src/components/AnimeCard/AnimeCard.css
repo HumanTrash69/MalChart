@@ -78,20 +78,17 @@
 /* Details Section */
 .anime-details {
   flex: 1;
-  padding: 1rem;
   display: flex;
   flex-direction: column;
   height: 100%;
   overflow: hidden;
-}
-
-.title-section {
-  margin-bottom: 0.4rem;
+  padding: 0;
 }
 
 .scrollable-content {
   flex: 1;
   overflow-y: auto;
+  padding: 1rem;
   padding-right: 0.5rem;
 }
 
@@ -109,18 +106,42 @@
   opacity: 0.5;
 }
 
+.title-section {
+  margin-bottom: 0.3rem;
+}
+
 /* Synopsis */
 .synopsis {
   color: var(--color-text);
   font-size: 0.85rem;
   line-height: 1.35;
-  /* Removed -webkit-line-clamp and related properties since we have scrolling now */
 }
 
 .synopsis-label {
   color: var(--color-text);
   font-weight: 500;
   margin-right: 0.4rem;
+}
+
+/* Stats */
+.anime-stats {
+  color: var(--color-text-light);
+  font-size: 0.85rem;
+  margin-bottom: 0.2rem;
+}
+
+.anime-stats span {
+  margin-right: 0.5rem;
+}
+
+/* Genres */
+.anime-genres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.1rem;
+  color: var(--color-text-light);
+  font-size: 0.8rem;
+  margin-bottom: 0.2rem;
 }
 
 /* Title */
@@ -143,26 +164,6 @@
   margin: 0;
 }
 
-/* Stats */
-.anime-stats {
-  color: var(--color-text-light);
-  font-size: 0.85rem;
-  margin-bottom: 0.4rem;
-}
-
-.anime-stats span {
-  margin-right: 0.5rem;
-}
-
-/* Genres */
-.anime-genres {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.1rem;
-  color: var(--color-text-light);
-  font-size: 0.8rem;
-}
-
 .genre-label {
   color: var(--color-text);
   font-weight: 500;
@@ -183,7 +184,7 @@
 .anime-metadata {
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
+  gap: 0.2rem;
   font-size: 0.8rem;
   color: var(--color-text-light);
 }
@@ -202,7 +203,7 @@
 .content-separator {
   height: 1px;
   background: var(--color-border);
-  margin: 0.25rem 0;
+  margin: 0.2rem 0;
   opacity: 0.5;
 }
 
@@ -227,32 +228,6 @@
 
 .genre-tag.clickable:hover {
   color: var(--color-blue);
-}
-
-/* Remove the duplicate synopsis section at the bottom and update the one under Details Section */
-
-/* Synopsis */
-.synopsis {
-  color: var(--color-text);
-  font-size: 0.85rem;
-  line-height: 1.35;
-  margin-bottom: 0.4rem;
-}
-
-.synopsis-label {
-  color: var(--color-text);
-  font-weight: 500;
-  margin-right: 0.4rem;
-}
-
-/* Add some spacing between sections in scrollable content */
-.scrollable-content {
-  flex: 1;
-  overflow-y: auto;
-  padding-right: 0.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
 }
 
 /* Media Queries */

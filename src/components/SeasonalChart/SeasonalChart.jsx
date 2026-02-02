@@ -10,6 +10,7 @@ const SeasonalChart = ({ season, year, view }) => {
   const [displayedAnime, setDisplayedAnime] = useState([]);
   const [filteredAnime, setFilteredAnime] = useState([]);
   const [unfilteredTotal, setUnfilteredTotal] = useState(0);
+  const [categories, setCategories] = useState({});
   const [searchTerm, setSearchTerm] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [filters, setFilters] = useState({
@@ -166,6 +167,10 @@ const SeasonalChart = ({ season, year, view }) => {
     return `${season.charAt(0).toUpperCase() + season.slice(1)} ${year}`;
   };
 
+  const handleCategoriesChange = useCallback((newCategories) => {
+    setCategories(newCategories);
+  }, []);
+
   return (
     <div className="seasonal-chart">
       <div className="chart-header">
@@ -181,10 +186,12 @@ const SeasonalChart = ({ season, year, view }) => {
         onSortChange={handleSort}
         onFilterChange={handleFilterChange}
         filters={filters}
+        categories={categories}
       />
       <CategorizedAnimeList 
         animeList={displayedAnime}
         isLoading={isLoading}
+        onCategoriesChange={handleCategoriesChange}
       />
     </div>
   );

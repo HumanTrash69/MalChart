@@ -39,16 +39,16 @@ const AnimeCard = ({ anime }) => {
           </div>
         </div>
         <div className="anime-details">
-          <div className="title-section">
-            <h3 onClick={handleTitleClick} className="anime-title">{anime.title_english || anime.title}</h3>
-            {anime.title_english && anime.title_english !== anime.title && (
-              <h4 className="anime-title-japanese">{anime.title}</h4>
-            )}
-          </div>
-          
-          <div className="content-separator"></div>
-          
           <div className="scrollable-content">
+            <div className="title-section">
+              <h3 onClick={handleTitleClick} className="anime-title">{anime.title_english || anime.title}</h3>
+              {anime.title_english && anime.title_english !== anime.title && (
+                <h4 className="anime-title-japanese">{anime.title}</h4>
+              )}
+            </div>
+            
+            <div className="content-separator"></div>
+            
             <div className="anime-stats">
               {formatDate(anime.aired?.from)} • {anime.episodes || '?'} eps
             </div>
@@ -92,11 +92,7 @@ const AnimeCard = ({ anime }) => {
                   {anime.source}
                 </div>
               )}
-            </div>
-            
-            <div className="content-separator"></div>
 
-            <div className="anime-metadata">
               {anime.themes?.length > 0 && (
                 <div className="metadata-item">
                   <span className="metadata-label">Theme:</span>
