@@ -2,6 +2,25 @@
 
 An AniChart-like clone which takes data from MyAnimeList instead. View seasonal anime with a beautiful, responsive interface powered by real-time MAL data.
 
+---
+
+## 🆕 New to This? Start Here!
+
+**Just want to run it on your laptop?** 
+
+👉 **[Click here for the simplest guide](LOCAL_SETUP.md)** 👈
+
+Or use the **one-command setup**:
+```bash
+git clone https://github.com/HumanTrash69/MalChart.git
+cd MalChart
+./setup.sh  # Mac/Linux  OR  setup.bat  # Windows
+```
+
+**Need help?** See our [📋 Quick Reference](QUICK_REFERENCE.md) or [🖼️ Visual Guide](VISUAL_GUIDE.md)
+
+---
+
 ## 🚀 Running Locally on Your Laptop
 
 **Want to run this on your laptop?** Choose your path:
