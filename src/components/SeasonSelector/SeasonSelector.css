@@ -1,0 +1,85 @@
+.season-selector {
+  position: relative;
+}
+
+.season-selector-toggle {
+  background: var(--color-foreground);
+  border: 1px solid var(--color-text-light);
+  color: var(--color-text-bright);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.season-selector-toggle:hover {
+  background: var(--color-foreground-grey);
+  border-color: var(--color-blue);
+}
+
+.dropdown-arrow {
+  font-size: 0.7rem;
+  opacity: 0.7;
+}
+
+.season-grid {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  background: var(--color-foreground);
+  border: 1px solid var(--color-text-light);
+  border-radius: 4px;
+  padding: 0.5rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  min-width: 400px;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.season-grid-item {
+  background: var(--color-background);
+  border: 1px solid transparent;
+  color: var(--color-text-light);
+  padding: 0.7rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.season-grid-item:hover {
+  background: var(--color-foreground-grey);
+  border-color: var(--color-blue);
+  color: var(--color-text-bright);
+}
+
+.season-grid-item.active {
+  background: var(--color-blue);
+  color: var(--color-text-bright);
+  border-color: var(--color-blue);
+}
+
+.season-grid-item.special {
+  background: var(--color-foreground-grey);
+  font-weight: 600;
+}
+
+.season-grid-season {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.season-grid-year {
+  font-size: 0.75rem;
+  opacity: 0.7;
+}

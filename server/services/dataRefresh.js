@@ -24,6 +24,13 @@ const refreshSeasonalData = async () => {
   try {
     const { season, year } = getCurrentSeasonInfo();
     
+    // Fetch previous season (for users who want to see last season)
+    const prevSeasonInfo = getPreviousSeason(season, year);
+    console.log('Refreshing previous season data...');
+    const prevData = await fetchSeasonalAnime(prevSeasonInfo.year, prevSeasonInfo.season);
+    const prevCacheKey = `seasonal_${prevSeasonInfo.year}_${prevSeasonInfo.season}`;
+    cache.set(prevCacheKey, prevData);
+    
     // Fetch current season
     console.log('Refreshing current season data...');
     const currentData = await fetchSeasonalAnime(year, season);

@@ -84,11 +84,12 @@ const fetchUpcomingAnime = async () => {
   try {
     let allAnime = [];
     let page = 1;
-    const maxPages = 5; // Limit to first 5 pages for upcoming
+    let hasNextPage = true;
 
     console.log('Fetching upcoming anime...');
 
-    for (let i = 0; i < maxPages; i++) {
+    // Fetch all pages of upcoming anime
+    while (hasNextPage) {
       const response = await fetch(`${BASE_URL}/seasons/upcoming?page=${page}`);
       
       if (!response.ok) {
@@ -104,13 +105,15 @@ const fetchUpcomingAnime = async () => {
       
       if (data.data?.length > 0) {
         allAnime = [...allAnime, ...data.data];
+        hasNextPage = data.pagination?.has_next_page;
         page++;
         
-        if (i < maxPages - 1) {
+        // Wait 1 second between requests to respect rate limits
+        if (hasNextPage) {
           await delay(1000);
         }
       } else {
-        break;
+        hasNextPage = false;
       }
     }
 

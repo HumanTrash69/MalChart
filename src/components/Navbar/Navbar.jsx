@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Navbar.css';
+import SeasonSelector from '../SeasonSelector/SeasonSelector';
 import { getCurrentSeason, getCurrentYear } from '../../utils/helpers';
 
 const Navbar = ({ onSeasonChange, onViewChange }) => {
@@ -7,18 +8,21 @@ const Navbar = ({ onSeasonChange, onViewChange }) => {
   const [selectedSeason, setSelectedSeason] = useState(getCurrentSeason());
   const [activeView, setActiveView] = useState('airing');
 
-  const handleSeasonClick = (season) => {
+  const handleSeasonSelect = (season, year, specialView) => {
     setSelectedSeason(season);
-    if (onSeasonChange) {
-      onSeasonChange(season, selectedYear);
-    }
-  };
-
-  const handleYearChange = (direction) => {
-    const newYear = direction === 'prev' ? selectedYear - 1 : selectedYear + 1;
-    setSelectedYear(newYear);
-    if (onSeasonChange) {
-      onSeasonChange(selectedSeason, newYear);
+    setSelectedYear(year);
+    
+    if (specialView) {
+      // Handle special views like 'tba' or 'archive'
+      setActiveView(specialView);
+      if (onViewChange) {
+        onViewChange(specialView);
+      }
+    } else {
+      // Regular season change
+      if (onSeasonChange) {
+        onSeasonChange(season, year);
+      }
     }
   };
 
@@ -34,28 +38,11 @@ const Navbar = ({ onSeasonChange, onViewChange }) => {
       <div className="navbar-content">
         <div className="navbar-brand">MALCharts</div>
         
-        <div className="year-control">
-          <button onClick={() => handleYearChange('prev')} className="year-button">
-            ◄
-          </button>
-          <span className="year-display">{selectedYear}</span>
-          <button onClick={() => handleYearChange('next')} className="year-button">
-            ►
-          </button>
-        </div>
-
-        <div className="seasons">
-          {['winter', 'spring', 'summer', 'fall'].map(season => (
-            <button
-              key={season}
-              className={`season ${selectedSeason === season ? 'active' : ''}`}
-              onClick={() => handleSeasonClick(season)}
-            >
-              <div className="season-name">{season.charAt(0).toUpperCase() + season.slice(1)}</div>
-              <div className="season-year">{selectedYear}</div>
-            </button>
-          ))}
-        </div>
+        <SeasonSelector 
+          onSeasonSelect={handleSeasonSelect}
+          currentSeason={selectedSeason}
+          currentYear={selectedYear}
+        />
 
         <div className="nav-actions">
           <button 
