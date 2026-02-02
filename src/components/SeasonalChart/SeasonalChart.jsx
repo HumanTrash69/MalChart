@@ -57,13 +57,8 @@ const SeasonalChart = ({ season, year, view }) => {
         // Fetch upcoming anime for TBA view
         data = await getUpcomingAnime();
       } else {
-        // Fetch seasonal anime for airing/archive views
+        // Fetch seasonal anime for archive view
         data = await getSeasonalAnime(year, season);
-        
-        // Filter based on view
-        if (view === 'airing') {
-          data = data.filter(anime => anime.airing === true);
-        }
       }
       
       // Apply content filters
@@ -154,7 +149,6 @@ const SeasonalChart = ({ season, year, view }) => {
 
   const getViewTitle = () => {
     if (view === 'tba') return 'To Be Announced';
-    if (view === 'airing') return 'Currently Airing';
     return `${season.charAt(0).toUpperCase() + season.slice(1)} ${year}`;
   };
 

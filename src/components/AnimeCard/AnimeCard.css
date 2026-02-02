@@ -8,11 +8,21 @@
   width: 100%;
   max-width: 460px;
   min-width: 360px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .anime-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .anime-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+[data-theme="light"] .anime-card:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.25);
 }
 
 .anime-content {
@@ -54,12 +64,14 @@
   font-weight: bold;
   margin-bottom: 0.2rem;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  color: #ffffff;
 }
 
 .anime-members {
   font-size: 0.8rem;
   opacity: 0.9;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  color: #ffffff;
 }
 
 /* Details Section */
