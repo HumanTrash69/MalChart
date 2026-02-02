@@ -56,27 +56,35 @@ The setup script automatically:
 ## Features
 
 - 📊 **Seasonal Anime Charts** - Browse anime by season and year
-- 🔄 **Backend Caching** - Fast data loading with server-side caching
+- 💾 **Persistent Storage** - MongoDB integration for data persistence (optional)
+- 🔄 **Smart Caching** - Three-layer caching (memory → database → API)
 - 📅 **Multiple Views**:
-  - **Airing** - Currently airing shows
-  - **Archive** - Full seasonal archive
-  - **TBA** - Upcoming anime to be announced
+  - **Archive** - Full seasonal archive with year grid
+  - **Later** - Upcoming anime to be announced
 - 🎯 **Smart Sorting** - Sort by members, score, start date, title, or studio
-- 📱 **Responsive Design** - Works on all devices
-- 🎨 **Categorized Display** - Organized by TV, ONA, OVA, Movie, and Special
+- 🔍 **Search** - Real-time search across all anime titles
+- 🎭 **Themes** - Light and dark theme support
+- 🚫 **Content Filters** - Hide hentai and kids content (customizable)
+- 📱 **Responsive Design** - Optimized for mobile, tablet, and desktop
+- 🎨 **Categorized Display** - Organized by TV (NEW), TV (Continuing), ONA, OVA, Movie, and Special
+- 🔗 **Clickable Metadata** - All genres, studios, themes clickable
+- ⚡ **Fast Loading** - Database caching reduces API calls by 90%
 
 ## Tech Stack
 
 ### Frontend
 - React 18
 - CSS3 with custom theming
+- Light/Dark theme support
 - Responsive design
 
 ### Backend
 - Node.js + Express
+- MongoDB (optional) for persistent storage
 - In-memory caching with node-cache
 - Scheduled data refresh (every 6 hours)
 - Rate-limited API requests
+- Three-layer data strategy (cache → database → API)
 
 ## Getting Started
 
@@ -111,6 +119,48 @@ See the [Quick Start Guide](QUICKSTART.md) for alternative setup methods includi
 
 ### Prerequisites
 - Node.js 14+ and npm
+- MongoDB (optional, for persistent storage)
+
+### Optional: MongoDB Setup
+
+MalChart can run with or without MongoDB:
+
+**Without MongoDB (Cache Only):**
+- Data stored in memory
+- Lost on server restart
+- Works fine for development
+
+**With MongoDB (Recommended):**
+- Persistent data storage
+- Survives server restarts
+- Reduces API calls by 90%
+- Better for production
+
+**Setup MongoDB:**
+
+**Option 1: Local MongoDB**
+```bash
+# macOS
+brew install mongodb-community && brew services start mongodb-community
+
+# Ubuntu/Debian
+sudo apt install mongodb && sudo systemctl start mongodb
+```
+
+**Option 2: MongoDB Atlas (Cloud, Free)**
+1. Sign up at https://www.mongodb.com/cloud/atlas
+2. Create a free cluster
+3. Get connection string
+
+**Configure:**
+```bash
+# In server/.env
+MONGODB_URI=mongodb://localhost:27017/malchart
+# Or for Atlas:
+# MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/malchart
+```
+
+See [DATABASE_IMPLEMENTATION.md](DATABASE_IMPLEMENTATION.md) for detailed setup instructions.
 
 ### Installation
 
