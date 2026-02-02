@@ -6,10 +6,11 @@ import { getCurrentSeason, getCurrentYear } from '../../utils/helpers';
 const Navbar = ({ onSeasonChange, onViewChange }) => {
   const [selectedYear, setSelectedYear] = useState(getCurrentYear());
   const [selectedSeason, setSelectedSeason] = useState(getCurrentSeason());
-  const [activeView, setActiveView] = useState('archive');
+  const [activeView, setActiveView] = useState('season');
 
   const handleSeasonClick = (season) => {
     setSelectedSeason(season);
+    setActiveView('season');
     if (onSeasonChange) {
       onSeasonChange(season, selectedYear);
     }
@@ -18,6 +19,7 @@ const Navbar = ({ onSeasonChange, onViewChange }) => {
   const handleYearChange = (direction) => {
     const newYear = direction === 'prev' ? selectedYear - 1 : selectedYear + 1;
     setSelectedYear(newYear);
+    setActiveView('season');
     if (onSeasonChange) {
       onSeasonChange(selectedSeason, newYear);
     }
@@ -49,7 +51,7 @@ const Navbar = ({ onSeasonChange, onViewChange }) => {
           {['winter', 'spring', 'summer', 'fall'].map(season => (
             <button
               key={season}
-              className={`season ${selectedSeason === season ? 'active' : ''}`}
+              className={`season ${selectedSeason === season && activeView === 'season' ? 'active' : ''}`}
               onClick={() => handleSeasonClick(season)}
             >
               <div className="season-name">{season.charAt(0).toUpperCase() + season.slice(1)}</div>

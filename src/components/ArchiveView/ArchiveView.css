@@ -1,0 +1,125 @@
+.archive-view {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.archive-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.archive-header h2 {
+  color: var(--color-text-bright);
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.archive-subtitle {
+  color: var(--color-text-light);
+  font-size: 1rem;
+}
+
+.archive-years {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.archive-year-section {
+  background: var(--color-foreground);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+[data-theme="light"] .archive-year-section {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.archive-year-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background: var(--color-foreground);
+  border: none;
+  color: var(--color-text-bright);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.archive-year-header:hover {
+  background: var(--color-foreground-grey);
+}
+
+.archive-year-header.expanded {
+  background: var(--color-foreground-grey);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.year-label {
+  font-size: 1.2rem;
+}
+
+.expand-icon {
+  font-size: 0.9rem;
+  opacity: 0.7;
+  transition: transform 0.2s ease;
+}
+
+.archive-seasons-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  padding: 1.5rem;
+  background: var(--color-background);
+}
+
+.archive-season-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 1.2rem;
+  background: var(--color-foreground);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  color: var(--color-text-light);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+[data-theme="light"] .archive-season-button {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.archive-season-button:hover {
+  background: var(--color-foreground-grey);
+  border-color: var(--color-blue);
+  color: var(--color-blue);
+  transform: translateY(-2px);
+}
+
+[data-theme="light"] .archive-season-button:hover {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.archive-season-button.active {
+  background: var(--color-blue);
+  border-color: var(--color-blue);
+  color: var(--color-text-bright);
+}
+
+.season-name {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.season-year {
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
