@@ -146,7 +146,7 @@
 
 /* Title */
 .anime-title {
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 600;
   color: var(--color-text-bright);
   cursor: pointer;
@@ -158,7 +158,7 @@
 }
 
 .anime-title-japanese {
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   color: var(--color-text-light);
   font-weight: normal;
   margin: 0;

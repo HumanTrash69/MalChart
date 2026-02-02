@@ -6,8 +6,8 @@ import './CategorizedAnimeList.css';
 const CategorizedAnimeList = ({ animeList, isLoading, onCategoriesChange }) => {
   // Group anime by type and status
   const groupedAnime = {
-    'TV (NEW)': animeList?.filter(anime => anime.type === 'TV' && !anime.continuing) || [],
-    'TV (Continuing)': animeList?.filter(anime => anime.type === 'TV' && anime.continuing) || [],
+    'TV (NEW)': animeList?.filter(anime => anime.type === 'TV' && anime.status !== 'Currently Airing') || [],
+    'TV (Continuing)': animeList?.filter(anime => anime.type === 'TV' && anime.status === 'Currently Airing') || [],
     'ONA': animeList?.filter(anime => anime.type === 'ONA') || [],
     'OVA': animeList?.filter(anime => anime.type === 'OVA') || [],
     'Movie': animeList?.filter(anime => anime.type === 'Movie') || [],
