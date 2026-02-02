@@ -3,11 +3,11 @@ import './ArchiveView.css';
 
 const ArchiveView = ({ onSeasonSelect, currentSeason, currentYear }) => {
   const currentYearNum = new Date().getFullYear();
-  const [expandedYears, setExpandedYears] = useState([currentYearNum]);
+  const [expandedYears, setExpandedYears] = useState([currentYearNum - 1]);
   
-  // Generate years from 2000 to current year + 1
+  // Generate years from 2000 to current year - 1 (only past years)
   const years = [];
-  for (let y = currentYearNum + 1; y >= 2000; y--) {
+  for (let y = currentYearNum - 1; y >= 2000; y--) {
     years.push(y);
   }
   

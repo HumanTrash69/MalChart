@@ -55,13 +55,17 @@ const SeasonalChart = ({ season, year, view }) => {
       
       let data;
       if (view === 'later') {
-        // Fetch upcoming anime for Later view - only shows anime with no air date or future dates
+        // Fetch upcoming anime for Later view - only shows anime with no air date or far future dates
         const upcomingData = await getUpcomingAnime();
         const now = new Date();
+        // Set threshold to 3 months from now to exclude currently airing/near future
+        const futureThreshold = new Date(now.getTime() + (90 * 24 * 60 * 60 * 1000));
+        
         data = upcomingData.filter(anime => {
           if (!anime.aired?.from) return true; // No date means truly upcoming
           const airDate = new Date(anime.aired.from);
-          return airDate > now; // Only future dates
+          // Only include if air date is more than 3 months in the future
+          return airDate > futureThreshold;
         });
       } else {
         // Fetch seasonal anime for archive view
