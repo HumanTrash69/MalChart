@@ -29,6 +29,10 @@ An AniChart-like clone which takes data from MyAnimeList instead. View seasonal 
 
 ## Getting Started
 
+### Quick Start
+
+See the [Quick Start Guide](QUICKSTART.md) for the fastest way to get up and running.
+
 ### Prerequisites
 - Node.js 14+ and npm
 
@@ -157,7 +161,11 @@ All anime data is sourced from [Jikan API](https://jikan.moe/), an unofficial My
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+## Deployment
+
+For production deployment instructions, see [DEPLOYMENT.md](DEPLOYMENT.md).
 
 ## License
 
