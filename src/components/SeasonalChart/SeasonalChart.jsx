@@ -1,27 +1,37 @@
 import React, { useState, useEffect } from 'react';
-import { getSeasonalAnime } from '../../services/animeService';
+import { getSeasonalAnime, getUpcomingAnime } from '../../services/animeService';
 import SortSection from '../SortSection/SortSection';
 import CategorizedAnimeList from '../CategorizedAnimeList/CategorizedAnimeList';
-import { getCurrentSeason, getCurrentYear } from '../../utils/helpers';
 import './SeasonalChart.css';
 
-const SeasonalChart = () => {  // Remove props since we'll use internal state
+const SeasonalChart = ({ season, year, view }) => {
   const [allAnimeList, setAllAnimeList] = useState([]);
   const [displayedAnime, setDisplayedAnime] = useState([]);
-  const [currentSeason, setCurrentSeason] = useState(getCurrentSeason());
-  const [currentYear, setCurrentYear] = useState(getCurrentYear());
   const [sortBy, setSortBy] = useState('members');
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     setDisplayedAnime([]); // Clear current list
     fetchAnime();
-  }, [currentSeason, currentYear]);
+  }, [season, year, view]);
 
   const fetchAnime = async () => {
     try {
       setIsLoading(true);
-      const data = await getSeasonalAnime(currentYear, currentSeason);
+      
+      let data;
+      if (view === 'tba') {
+        // Fetch upcoming anime for TBA view
+        data = await getUpcomingAnime();
+      } else {
+        // Fetch seasonal anime for airing/archive views
+        data = await getSeasonalAnime(year, season);
+        
+        // Filter based on view
+        if (view === 'airing') {
+          data = data.filter(anime => anime.airing === true);
+        }
+      }
       
       // Sort initially by members
       const sortedData = [...data].sort((a, b) => (b.members || 0) - (a.members || 0));
@@ -68,8 +78,17 @@ const SeasonalChart = () => {  // Remove props since we'll use internal state
     setDisplayedAnime(sortedAnime); // Update displayed anime immediately after sorting
   };
 
+  const getViewTitle = () => {
+    if (view === 'tba') return 'To Be Announced';
+    if (view === 'airing') return 'Currently Airing';
+    return `${season.charAt(0).toUpperCase() + season.slice(1)} ${year}`;
+  };
+
   return (
     <div className="seasonal-chart">
+      <div className="chart-header">
+        <h1 className="chart-title">{getViewTitle()}</h1>
+      </div>
       <SortSection 
         totalAnime={allAnimeList.length} 
         onSortChange={handleSort}

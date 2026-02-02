@@ -25,9 +25,43 @@
   flex: 0 0 auto;
 }
 
+.year-control {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 0 0 auto;
+}
+
+.year-button {
+  background: none;
+  border: 1px solid var(--color-text-light);
+  color: var(--color-text-light);
+  cursor: pointer;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.year-button:hover {
+  background-color: rgba(61, 180, 242, 0.1);
+  border-color: var(--color-blue);
+  color: var(--color-blue);
+}
+
+.year-display {
+  color: var(--color-text-bright);
+  font-size: 1.1rem;
+  font-weight: 600;
+  min-width: 60px;
+  text-align: center;
+}
+
 .seasons {
   display: flex;
   gap: 1rem;
+  flex: 1;
+  justify-content: center;
 }
 
 .season {
@@ -36,16 +70,18 @@
   border-radius: 4px;
   color: var(--color-text-light);
   text-align: center;
+  transition: all 0.2s ease;
 }
 
 .season-name {
-  font-size: 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
   margin-bottom: 0.2rem;
 }
 
 .season-year {
   font-size: 0.8rem;
-  opacity: 0.8;
+  opacity: 0.7;
 }
 
 .season.active {
@@ -54,17 +90,8 @@
 }
 
 .season:hover:not(.active) {
-  background: var(--color-foreground);
-}
-
-.season-name {
-  font-size: 0.9rem;
-  font-weight: 600;
-}
-
-.season-year {
-  font-size: 0.8rem;
-  opacity: 0.7;
+  background: rgba(61, 180, 242, 0.1);
+  color: var(--color-blue);
 }
 
 .nav-actions {
@@ -75,7 +102,7 @@
 
 .nav-button {
   background: none;
-  border: none;
+  border: 1px solid transparent;
   color: var(--color-text-bright);
   cursor: pointer;
   padding: 0.4rem 1rem;
@@ -87,4 +114,10 @@
 .nav-button:hover {
   background-color: rgba(61, 180, 242, 0.1);
   color: var(--color-blue);
+}
+
+.nav-button.active {
+  background: var(--color-blue);
+  color: var(--color-text-bright);
+  border-color: var(--color-blue);
 }
