@@ -12,18 +12,22 @@ const CategorizedAnimeList = ({ animeList, isLoading, onCategoriesChange, season
     const airYear = airDate.getFullYear();
     const airMonth = airDate.getMonth() + 1; // 1-12
     
-    // If not from this year, it's continuing
-    if (airYear !== year) return airYear === year;
+    // Check if anime started in current season
+    // Winter is special: includes December of previous year
+    if (season === 'winter') {
+      // Winter includes Dec (prev year) + Jan-Mar (current year)
+      if (airYear === year && airMonth >= 1 && airMonth <= 3) return true;
+      if (airYear === year - 1 && airMonth === 12) return true;
+      return false;
+    } else if (season === 'spring') {
+      return airYear === year && airMonth >= 4 && airMonth <= 6;
+    } else if (season === 'summer') {
+      return airYear === year && airMonth >= 7 && airMonth <= 9;
+    } else if (season === 'fall') {
+      return airYear === year && airMonth >= 10 && airMonth <= 12;
+    }
     
-    // Determine which season the air date falls into
-    let airSeason;
-    if (airMonth >= 1 && airMonth <= 3) airSeason = 'winter';
-    else if (airMonth >= 4 && airMonth <= 6) airSeason = 'spring';
-    else if (airMonth >= 7 && airMonth <= 9) airSeason = 'summer';
-    else airSeason = 'fall';
-    
-    // If it started this season/year, it's new
-    return airSeason === season && airYear === year;
+    return false;
   };
   
   // Group anime by type and status

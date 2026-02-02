@@ -14,14 +14,14 @@ const SeasonalChart = ({ season, year, view }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [filters, setFilters] = useState({
-    hideHentai: true,
-    hideKids: true
+    showHentai: false,
+    showKids: false
   });
 
   const applyFilters = (animeList) => {
     return animeList.filter(anime => {
-      // Check for hentai content
-      if (filters.hideHentai) {
+      // Check for hentai content - hide if showHentai is false
+      if (!filters.showHentai) {
         const hasHentaiGenre = anime.genres?.some(genre => 
           genre.name?.toLowerCase() === 'hentai' || 
           genre.name?.toLowerCase() === 'erotica'
@@ -32,8 +32,8 @@ const SeasonalChart = ({ season, year, view }) => {
         }
       }
       
-      // Check for kids content
-      if (filters.hideKids) {
+      // Check for kids content - hide if showKids is false
+      if (!filters.showKids) {
         const hasKidsGenre = anime.genres?.some(genre => 
           genre.name?.toLowerCase() === 'kids'
         );

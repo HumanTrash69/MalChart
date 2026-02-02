@@ -39,16 +39,16 @@ const SortSection = ({ totalAnime, unfilteredTotal, onSortChange, onFilterChange
           <label className="filter-checkbox">
             <input 
               type="checkbox" 
-              checked={filters?.hideHentai ?? true}
-              onChange={(e) => onFilterChange('hideHentai', e.target.checked)}
+              checked={filters?.showHentai ?? false}
+              onChange={(e) => onFilterChange('showHentai', e.target.checked)}
             />
             <span>Hentai</span>
           </label>
           <label className="filter-checkbox">
             <input 
               type="checkbox" 
-              checked={filters?.hideKids ?? true}
-              onChange={(e) => onFilterChange('hideKids', e.target.checked)}
+              checked={filters?.showKids ?? false}
+              onChange={(e) => onFilterChange('showKids', e.target.checked)}
             />
             <span>Kids</span>
           </label>
