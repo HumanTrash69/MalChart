@@ -21,3 +21,17 @@
   gap: 1.5rem;
   justify-content: center;
 }
+
+.no-results {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  padding: 2rem;
+}
+
+.no-results p {
+  color: var(--color-text-light);
+  font-size: 1.2rem;
+  text-align: center;
+}
