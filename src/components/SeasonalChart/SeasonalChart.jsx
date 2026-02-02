@@ -11,6 +11,42 @@ const SeasonalChart = ({ season, year, view }) => {
   const [filteredAnime, setFilteredAnime] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const [filters, setFilters] = useState({
+    hideHentai: true,
+    hideKids: false
+  });
+
+  const applyFilters = (animeList) => {
+    return animeList.filter(anime => {
+      // Check for hentai content
+      if (filters.hideHentai) {
+        const hasHentaiGenre = anime.genres?.some(genre => 
+          genre.name?.toLowerCase() === 'hentai' || 
+          genre.name?.toLowerCase() === 'erotica'
+        );
+        const hasExplicitRating = anime.rating?.toLowerCase().includes('rx');
+        if (hasHentaiGenre || hasExplicitRating) {
+          return false;
+        }
+      }
+      
+      // Check for kids content
+      if (filters.hideKids) {
+        const hasKidsGenre = anime.genres?.some(genre => 
+          genre.name?.toLowerCase() === 'kids'
+        );
+        const hasKidsRating = anime.rating?.toLowerCase().includes('g - all ages');
+        const hasKidsDemographic = anime.demographics?.some(demo =>
+          demo.name?.toLowerCase() === 'kids'
+        );
+        if (hasKidsGenre || hasKidsRating || hasKidsDemographic) {
+          return false;
+        }
+      }
+      
+      return true;
+    });
+  };
 
   const fetchAnime = useCallback(async () => {
     try {
@@ -30,6 +66,9 @@ const SeasonalChart = ({ season, year, view }) => {
         }
       }
       
+      // Apply content filters
+      data = applyFilters(data);
+      
       // Sort initially by members
       const sortedData = [...data].sort((a, b) => (b.members || 0) - (a.members || 0));
       setAllAnimeList(sortedData);
@@ -47,7 +86,7 @@ const SeasonalChart = ({ season, year, view }) => {
       console.error('Error fetching anime:', error);
       setIsLoading(false);
     }
-  }, [season, year, view]);
+  }, [season, year, view, filters]);
 
   useEffect(() => {
     setDisplayedAnime([]); // Clear current list
@@ -73,6 +112,13 @@ const SeasonalChart = ({ season, year, view }) => {
 
     setFilteredAnime(filtered);
     setDisplayedAnime(filtered);
+  };
+
+  const handleFilterChange = (filterType, value) => {
+    setFilters(prev => ({
+      ...prev,
+      [filterType]: value
+    }));
   };
 
   const handleSort = (sortType) => {
@@ -124,6 +170,8 @@ const SeasonalChart = ({ season, year, view }) => {
       <SortSection 
         totalAnime={searchTerm ? filteredAnime.length : allAnimeList.length} 
         onSortChange={handleSort}
+        onFilterChange={handleFilterChange}
+        filters={filters}
       />
       <CategorizedAnimeList 
         animeList={displayedAnime}

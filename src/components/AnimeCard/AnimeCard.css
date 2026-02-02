@@ -5,8 +5,9 @@
   overflow: hidden;
   transition: all 0.2s ease;
   height: 265px;
-  width: 460px;
-  max-width: 100%;
+  width: 100%;
+  max-width: 460px;
+  min-width: 360px;
 }
 
 .anime-card:hover {

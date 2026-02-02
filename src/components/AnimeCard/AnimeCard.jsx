@@ -8,7 +8,17 @@ const AnimeCard = ({ anime }) => {
 
   const formatDate = (dateString) => {
     if (!dateString) return 'TBA';
+    
     const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const day = date.getDate();
+    
+    // Check if it's just a year (Jan 1st of a year indicates unknown date within that year)
+    if (month === 0 && day === 1) {
+      return `${year}`;
+    }
+    
     return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
   };
 

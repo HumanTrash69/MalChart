@@ -2,15 +2,43 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
+  padding: 0.6rem 1rem;
   margin-bottom: 1rem;
   background: var(--color-foreground);
   border-radius: 4px;
 }
 
 .total-anime {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: var(--color-text-light);
+}
+
+.controls-section {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.filter-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.filter-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--color-text-light);
+  font-size: 0.85rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.filter-checkbox input[type="checkbox"] {
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
 }
 
 .sort-section {
@@ -21,13 +49,14 @@
 
 .sort-section label {
   color: var(--color-text-light);
-  font-size: 0.9rem;
+  font-size: 0.85rem;
 }
 
 .sort-section select {
-  padding: 0.3rem 0.6rem;
+  padding: 0.25rem 0.5rem;
   border-radius: 4px;
   background: var(--color-background);
   color: var(--color-text);
   border: 1px solid var(--color-border);
+  font-size: 0.85rem;
 }
