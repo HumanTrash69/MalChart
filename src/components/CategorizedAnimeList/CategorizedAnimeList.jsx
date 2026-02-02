@@ -1,6 +1,7 @@
 import React from 'react';
 import AnimeCard from '../AnimeCard/AnimeCard';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
+import CategoryNav from '../CategoryNav/CategoryNav';
 import './CategorizedAnimeList.css';
 
 const CategorizedAnimeList = ({ animeList, isLoading }) => {
@@ -26,11 +27,18 @@ const CategorizedAnimeList = ({ animeList, isLoading }) => {
     'Special': animeList.filter(anime => anime.type === 'Special')
   };
 
+  // Create categories object for CategoryNav with counts
+  const categories = {};
+  Object.entries(groupedAnime).forEach(([category, animeInCategory]) => {
+    categories[category] = animeInCategory.length;
+  });
+
   return (
     <div className="categorized-list">
+      <CategoryNav categories={categories} />
       {Object.entries(groupedAnime).map(([category, animeInCategory]) => (
         animeInCategory.length > 0 && (
-          <div key={category} className="category-section">
+          <div key={category} id={`category-${category}`} className="category-section">
             <h2 className="category-title">{category}</h2>
             <div className="anime-grid">
               {animeInCategory.map(anime => (

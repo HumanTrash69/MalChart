@@ -1,0 +1,35 @@
+.category-nav {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  padding: 0.5rem 0;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.category-nav-button {
+  padding: 0.4rem 0.8rem;
+  background: var(--color-foreground);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  color: var(--color-text);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.category-nav-button:hover {
+  background: var(--color-blue);
+  color: white;
+  border-color: var(--color-blue);
+}
+
+.category-nav-button .count {
+  color: var(--color-text-light);
+  margin-left: 0.3rem;
+  font-size: 0.8rem;
+}
+
+.category-nav-button:hover .count {
+  color: rgba(255, 255, 255, 0.8);
+}
