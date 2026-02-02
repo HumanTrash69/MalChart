@@ -10,8 +10,25 @@ const { refreshSeasonalData } = require('./services/dataRefresh');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Middleware
-app.use(cors());
+// CORS configuration for GitHub Pages
+const allowedOrigins = [
+  'http://localhost:3000',
+  'https://malcharts.github.io',
+  'https://humantrash69.github.io',
+  // Add your custom domain here if applicable
+];
+
+app.use(cors({
+  origin: function(origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.some(allowed => origin.startsWith(allowed))) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+}));
 app.use(express.json());
 
 // Routes
