@@ -16,8 +16,28 @@
 }
 
 .anime-grid {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
   gap: 1.5rem;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .anime-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.no-results {
+  display: flex;
+  align-items: center;
   justify-content: center;
+  min-height: 400px;
+  padding: 2rem;
+}
+
+.no-results p {
+  color: var(--color-text-light);
+  font-size: 1.2rem;
+  text-align: center;
 }

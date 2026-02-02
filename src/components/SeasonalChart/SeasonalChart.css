@@ -1,8 +1,20 @@
 .seasonal-chart {
   padding: 1rem;
   max-width: 1720px;
-  margin: 170px auto 0;
+  margin: 1rem auto 0;
   width: 100%;
+}
+
+.chart-header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.chart-title {
+  color: var(--color-text-bright);
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
 }
 
 .anime-list {
