@@ -2,6 +2,19 @@
 
 An AniChart-like clone which takes data from MyAnimeList instead. View seasonal anime with a beautiful, responsive interface powered by real-time MAL data.
 
+## 🚀 Running Locally
+
+**Want to run this on your laptop?** See the [📖 Local Setup Guide](LOCAL_SETUP.md) - it's super easy!
+
+Quick version:
+```bash
+git clone https://github.com/HumanTrash69/MalChart.git
+cd MalChart
+./setup.sh  # Mac/Linux
+# or
+setup.bat   # Windows
+```
+
 ## Features
 
 - 📊 **Seasonal Anime Charts** - Browse anime by season and year
@@ -29,9 +42,34 @@ An AniChart-like clone which takes data from MyAnimeList instead. View seasonal 
 
 ## Getting Started
 
+### 🏠 Running Locally on Your Laptop
+
+See the **[📖 Local Setup Guide (LOCAL_SETUP.md)](LOCAL_SETUP.md)** for step-by-step instructions!
+
+**Automated Setup:**
+```bash
+git clone https://github.com/HumanTrash69/MalChart.git
+cd MalChart
+
+# On Mac/Linux:
+./setup.sh
+
+# On Windows:
+setup.bat
+```
+
+The setup script will:
+- ✅ Install all dependencies
+- ✅ Create configuration files  
+- ✅ Start the backend server (port 5000)
+- ✅ Start the frontend app (port 3000)
+- ✅ Open in your browser automatically
+
+**Manual Setup:** See [LOCAL_SETUP.md](LOCAL_SETUP.md#-manual-setup-if-you-prefer) for manual steps.
+
 ### Quick Start
 
-See the [Quick Start Guide](QUICKSTART.md) for the fastest way to get up and running.
+See the [Quick Start Guide](QUICKSTART.md) for alternative setup methods including Docker.
 
 ### Prerequisites
 - Node.js 14+ and npm
