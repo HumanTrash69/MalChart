@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { getSeasonalAnime, getUpcomingAnime } from '../../services/animeService';
 import SortSection from '../SortSection/SortSection';
 import CategorizedAnimeList from '../CategorizedAnimeList/CategorizedAnimeList';
@@ -12,7 +12,7 @@ const SeasonalChart = ({ season, year, view }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
-  const fetchAnime = async () => {
+  const fetchAnime = useCallback(async () => {
     try {
       setIsLoading(true);
       
@@ -47,14 +47,13 @@ const SeasonalChart = ({ season, year, view }) => {
       console.error('Error fetching anime:', error);
       setIsLoading(false);
     }
-  };
+  }, [season, year, view]);
 
   useEffect(() => {
     setDisplayedAnime([]); // Clear current list
     setSearchTerm(''); // Clear search
     fetchAnime();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [season, year, view]);
+  }, [fetchAnime]);
 
   // Handle search
   const handleSearch = (term) => {
