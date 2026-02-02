@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const cache = require('../cache');
-const { fetchSeasonalAnime, fetchUpcomingAnime } = require('../services/jikanApi');
+const { getSeasonalAnime, getUpcomingAnime } = require('../services/animeData');
 const { getCurrentSeasonInfo } = require('../services/dataRefresh');
+const { isDBConnected } = require('../db');
 
 /**
  * GET /api/anime/seasonal/:year/:season
@@ -11,29 +12,15 @@ const { getCurrentSeasonInfo } = require('../services/dataRefresh');
 router.get('/seasonal/:year/:season', async (req, res) => {
   try {
     const { year, season } = req.params;
-    const cacheKey = `seasonal_${year}_${season}`;
     
-    // Check cache first
-    const cachedData = cache.get(cacheKey);
-    if (cachedData) {
-      console.log(`Serving cached data for ${season} ${year}`);
-      return res.json({
-        data: cachedData,
-        cached: true,
-        timestamp: new Date().toISOString()
-      });
-    }
-    
-    // Fetch fresh data if not in cache
-    console.log(`Fetching fresh data for ${season} ${year}`);
-    const data = await fetchSeasonalAnime(parseInt(year), season);
-    
-    // Cache the data
-    cache.set(cacheKey, data);
+    // Use the new service layer (handles cache, DB, and API)
+    const data = await getSeasonalAnime(parseInt(year), season);
     
     res.json({
       data,
-      cached: false,
+      year: parseInt(year),
+      season,
+      dbConnected: isDBConnected(),
       timestamp: new Date().toISOString()
     });
   } catch (error) {
@@ -52,27 +39,15 @@ router.get('/seasonal/:year/:season', async (req, res) => {
 router.get('/current', async (req, res) => {
   try {
     const { season, year } = getCurrentSeasonInfo();
-    const cacheKey = `seasonal_${year}_${season}`;
     
-    const cachedData = cache.get(cacheKey);
-    if (cachedData) {
-      return res.json({
-        data: cachedData,
-        season,
-        year,
-        cached: true,
-        timestamp: new Date().toISOString()
-      });
-    }
-    
-    const data = await fetchSeasonalAnime(year, season);
-    cache.set(cacheKey, data);
+    // Use the new service layer
+    const data = await getSeasonalAnime(year, season);
     
     res.json({
       data,
       season,
       year,
-      cached: false,
+      dbConnected: isDBConnected(),
       timestamp: new Date().toISOString()
     });
   } catch (error) {
@@ -90,23 +65,12 @@ router.get('/current', async (req, res) => {
  */
 router.get('/upcoming', async (req, res) => {
   try {
-    const cacheKey = 'upcoming_anime';
-    
-    const cachedData = cache.get(cacheKey);
-    if (cachedData) {
-      return res.json({
-        data: cachedData,
-        cached: true,
-        timestamp: new Date().toISOString()
-      });
-    }
-    
-    const data = await fetchUpcomingAnime();
-    cache.set(cacheKey, data);
+    // Use the new service layer
+    const data = await getUpcomingAnime();
     
     res.json({
       data,
-      cached: false,
+      dbConnected: isDBConnected(),
       timestamp: new Date().toISOString()
     });
   } catch (error) {

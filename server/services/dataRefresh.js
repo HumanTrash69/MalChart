@@ -1,5 +1,5 @@
 const cache = require('../cache');
-const { fetchSeasonalAnime, fetchUpcomingAnime } = require('./jikanApi');
+const { getSeasonalAnime, getUpcomingAnime } = require('./animeData');
 
 /**
  * Get current season and year
@@ -27,27 +27,20 @@ const refreshSeasonalData = async () => {
     // Fetch previous season (for users who want to see last season)
     const prevSeasonInfo = getPreviousSeason(season, year);
     console.log('Refreshing previous season data...');
-    const prevData = await fetchSeasonalAnime(prevSeasonInfo.year, prevSeasonInfo.season);
-    const prevCacheKey = `seasonal_${prevSeasonInfo.year}_${prevSeasonInfo.season}`;
-    cache.set(prevCacheKey, prevData);
+    await getSeasonalAnime(prevSeasonInfo.year, prevSeasonInfo.season);
     
     // Fetch current season
     console.log('Refreshing current season data...');
-    const currentData = await fetchSeasonalAnime(year, season);
-    const cacheKey = `seasonal_${year}_${season}`;
-    cache.set(cacheKey, currentData);
+    await getSeasonalAnime(year, season);
     
     // Fetch next season
     const nextSeasonInfo = getNextSeason(season, year);
     console.log('Refreshing next season data...');
-    const nextData = await fetchSeasonalAnime(nextSeasonInfo.year, nextSeasonInfo.season);
-    const nextCacheKey = `seasonal_${nextSeasonInfo.year}_${nextSeasonInfo.season}`;
-    cache.set(nextCacheKey, nextData);
+    await getSeasonalAnime(nextSeasonInfo.year, nextSeasonInfo.season);
     
     // Fetch upcoming anime
     console.log('Refreshing upcoming anime data...');
-    const upcomingData = await fetchUpcomingAnime();
-    cache.set('upcoming_anime', upcomingData);
+    await getUpcomingAnime();
     
     console.log('Data refresh completed successfully');
   } catch (error) {
