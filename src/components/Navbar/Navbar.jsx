@@ -46,18 +46,14 @@ const Navbar = ({ onSeasonChange, onViewChange }) => {
 
         <div className="seasons">
           {['winter', 'spring', 'summer', 'fall'].map(season => (
-            <a 
+            <button
               key={season}
-              href="#" 
               className={`season ${selectedSeason === season ? 'active' : ''}`}
-              onClick={(e) => {
-                e.preventDefault();
-                handleSeasonClick(season);
-              }}
+              onClick={() => handleSeasonClick(season)}
             >
               <div className="season-name">{season.charAt(0).toUpperCase() + season.slice(1)}</div>
               <div className="season-year">{selectedYear}</div>
-            </a>
+            </button>
           ))}
         </div>
 

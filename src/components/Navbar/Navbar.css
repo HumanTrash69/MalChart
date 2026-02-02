@@ -65,12 +65,16 @@
 }
 
 .season {
+  background: none;
+  border: none;
   text-decoration: none;
   padding: 0.5rem 1rem;
   border-radius: 4px;
   color: var(--color-text-light);
   text-align: center;
   transition: all 0.2s ease;
+  cursor: pointer;
+  font-family: inherit;
 }
 
 .season-name {

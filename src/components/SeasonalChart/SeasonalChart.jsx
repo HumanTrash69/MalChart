@@ -7,13 +7,7 @@ import './SeasonalChart.css';
 const SeasonalChart = ({ season, year, view }) => {
   const [allAnimeList, setAllAnimeList] = useState([]);
   const [displayedAnime, setDisplayedAnime] = useState([]);
-  const [sortBy, setSortBy] = useState('members');
   const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    setDisplayedAnime([]); // Clear current list
-    fetchAnime();
-  }, [season, year, view]);
 
   const fetchAnime = async () => {
     try {
@@ -51,8 +45,13 @@ const SeasonalChart = ({ season, year, view }) => {
     }
   };
 
+  useEffect(() => {
+    setDisplayedAnime([]); // Clear current list
+    fetchAnime();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [season, year, view]);
+
   const handleSort = (sortType) => {
-    setSortBy(sortType);
     const sortedAnime = [...allAnimeList].sort((a, b) => {
       switch (sortType) {
         case 'members':
