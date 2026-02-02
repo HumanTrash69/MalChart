@@ -192,6 +192,8 @@ const SeasonalChart = ({ season, year, view }) => {
         animeList={displayedAnime}
         isLoading={isLoading}
         onCategoriesChange={handleCategoriesChange}
+        season={season}
+        year={year}
       />
     </div>
   );

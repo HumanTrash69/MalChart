@@ -97,4 +97,64 @@ router.get('/cache-status', (req, res) => {
   });
 });
 
+/**
+ * POST /api/anime/admin/clear-cache
+ * Clear all cache (admin endpoint)
+ */
+router.post('/admin/clear-cache', (req, res) => {
+  try {
+    cache.flushAll();
+    res.json({
+      success: true,
+      message: 'Cache cleared successfully',
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to clear cache',
+      message: error.message
+    });
+  }
+});
+
+/**
+ * POST /api/anime/admin/clear-database
+ * Clear all database collections (admin endpoint)
+ */
+router.post('/admin/clear-database', async (req, res) => {
+  try {
+    if (!isDBConnected()) {
+      return res.status(400).json({
+        success: false,
+        error: 'Database not connected'
+      });
+    }
+
+    const mongoose = require('mongoose');
+    const db = mongoose.connection.db;
+    const collections = await db.listCollections().toArray();
+    
+    for (const collection of collections) {
+      await db.dropCollection(collection.name);
+    }
+    
+    // Also clear cache
+    cache.flushAll();
+    
+    res.json({
+      success: true,
+      message: 'Database and cache cleared successfully',
+      collectionsDropped: collections.map(c => c.name),
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to clear database',
+      message: error.message
+    });
+  }
+});
+
 module.exports = router;
